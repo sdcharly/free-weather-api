@@ -1,0 +1,62 @@
+openapi: 3.0.0
+info:
+  title: Weather API
+  version: 1.0.0
+  description: API for fetching weather data from OpenMeteo
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /weather:
+    get:
+      summary: Get weather information for a location
+      parameters:
+        - in: query
+          name: latitude
+          required: true
+          schema:
+            type: number
+          description: The latitude of the location
+        - in: query
+          name: longitude
+          required: true
+          schema:
+            type: number
+          description: The longitude of the location
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  temperature:
+                    type: number
+                  windspeed:
+                    type: number
+                  winddirection:
+                    type: number
+                  weathercode:
+                    type: number
+                  time:
+                    type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
